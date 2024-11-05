@@ -86,11 +86,11 @@ class _DetalhesPageStatus extends State<DetalhesProdutoPage> {
                           children: [
                             const SizedBox(height: 10),
                             Text(
-                                'Preço: R\$ ${produto!.preco.toStringAsFixed(2)}'),
+                                'Preço: R\$ ${produto!.preco.toStringAsFixed(2)}', style: const TextStyle(fontSize: 20),),
                             const SizedBox(height: 10),
-                            Text('Estoque: ${produto!.estoque}'),
+                            Text('Estoque: ${produto!.estoque}', style: const TextStyle(fontSize: 20),),
                             const SizedBox(height: 10),
-                            Text('Data: ${produto!.data.substring(0, 10)}'),
+                            Text('Data: ${produto!.data.substring(0, 10)}', style: const TextStyle(fontSize: 20),),
                           ],
                         ),
                       ),

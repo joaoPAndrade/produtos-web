@@ -26,7 +26,7 @@ class ProdutoWidget extends StatelessWidget {
         title: Text(
           produto.descricao,
           style: const TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
