@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import "../models/produo.dart";
 import '../widgets/formulario_widget.dart';
+import '../widgets/appBar.dart';
 
 class EditarProdutoPage extends StatefulWidget {
   final int produtoId;
@@ -66,9 +67,7 @@ class _EditarProdutoPage extends State<EditarProdutoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Editar Produto'),
-      ),
+      appBar: const AppbarWidget(title: 'CRUD - Produto'),
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(),

@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 
 class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final bool showBackButton;
 
   const AppbarWidget({
     Key? key,
     required this.title,
+    this.showBackButton = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.orange,
+      color: Colors.blue,
       child: AppBar(
         title: Text(
           title,
@@ -20,6 +22,7 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        automaticallyImplyLeading: showBackButton,
       ),
     );
   }

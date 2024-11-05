@@ -46,7 +46,7 @@ class _HomePageStatus extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const AppbarWidget(title: 'CRUD - Produto'),
+        appBar: const AppbarWidget(title: 'CRUD - Produto', showBackButton: false,),
         body: Stack(
           children: [
             const SizedBox(height: 200),
@@ -82,7 +82,8 @@ class _HomePageStatus extends State<HomePage> {
                   );
                   _fetchProdutos();
                 },
-                child: const Icon(Icons.add),
+                backgroundColor: Colors.blue,
+                child: const Icon(Icons.add, color: Colors.white,),
               ),
             ),
           ],

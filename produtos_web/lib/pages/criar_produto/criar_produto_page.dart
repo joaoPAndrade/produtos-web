@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../widgets/formulario_widget.dart';
+import '../widgets/appBar.dart';
 
 class CriarProdutoPage extends StatefulWidget {
   const CriarProdutoPage({Key? key}) : super(key: key);
@@ -45,9 +46,7 @@ class CriarProdutoPageState extends State<CriarProdutoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Criar Produto'),
-      ),
+      appBar: const AppbarWidget(title: 'CRUD - Produto'),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: _isLoading

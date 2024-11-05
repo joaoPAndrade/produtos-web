@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FormularioWidget extends StatefulWidget {
   final Map<String, dynamic>? initialData;
@@ -21,6 +22,7 @@ class FormularioWidgetState extends State<FormularioWidget> {
   late TextEditingController precoController;
   late TextEditingController estoqueController;
   late TextEditingController dataController;
+  late TextEditingController dataCompletaController;
 
   @override
   void initState() {
@@ -31,7 +33,11 @@ class FormularioWidgetState extends State<FormularioWidget> {
         TextEditingController(text: widget.initialData?['preco'] ?? '');
     estoqueController = TextEditingController(
         text: widget.initialData?['estoque']?.toString() ?? '');
-    dataController =
+    dataController = TextEditingController(
+        text: (widget.initialData?['data']?.length ?? 0) >= 10
+            ? widget.initialData!['data']!.substring(0, 10)
+            : widget.initialData?['data'] ?? '');
+    dataCompletaController =
         TextEditingController(text: widget.initialData?['data'] ?? '');
   }
 
@@ -57,20 +63,46 @@ class FormularioWidgetState extends State<FormularioWidget> {
             controller: precoController,
             decoration: const InputDecoration(labelText: 'Preço'),
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+            ],
           ),
           TextField(
             controller: estoqueController,
             decoration: const InputDecoration(labelText: 'Estoque'),
             keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly,
+            ],
           ),
           TextField(
             controller: dataController,
             decoration: const InputDecoration(labelText: 'Data'),
+            readOnly: true,
+            onTap: () async {
+              DateTime? initialDate;
+              if (dataCompletaController.text.isNotEmpty) {
+                initialDate = DateTime.tryParse(dataCompletaController.text);
+              }
+              DateTime? pickedDate = await showDatePicker(
+                context: context,
+                initialDate: initialDate ?? DateTime.now(),
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2100),
+              );
+              if (pickedDate != null) {
+                String dataCompleta = pickedDate.toIso8601String();
+                dataCompletaController.text = dataCompleta;
+                dataController.text = dataCompleta.substring(0, 10);
+              }
+            },
           ),
           const SizedBox(
             height: 20,
           ),
-          ElevatedButton(
+          Container(
+            constraints: const BoxConstraints(maxWidth: 200),
+            child: ElevatedButton(
               onPressed: () {
                 final novoProduto = {
                   "descricao": descricaoController.text,
@@ -80,7 +112,28 @@ class FormularioWidgetState extends State<FormularioWidget> {
                 };
                 widget.onSave(novoProduto);
               },
-              child: Text(widget.textoBotao))
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+              ),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.save,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    widget.textoBotao,
+                    softWrap: true,
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

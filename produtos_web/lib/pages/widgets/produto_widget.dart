@@ -15,7 +15,7 @@ class ProdutoWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Colors.orange,
+        color: const Color.fromARGB(255, 162, 212, 253),
         borderRadius: BorderRadius.circular(8.0),
       ),
       constraints: const BoxConstraints(
@@ -32,6 +32,7 @@ class ProdutoWidget extends StatelessWidget {
         ),
         onTap: onTap,
       ),
+      
     );
   }
 }

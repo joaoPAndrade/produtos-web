@@ -4,6 +4,7 @@ import 'package:produto_front/pages/home/home_page.dart';
 import 'dart:convert';
 import "../models/produo.dart";
 import '../editar_produto/editar_produto_page.dart';
+import '../widgets/appBar.dart';
 
 class DetalhesProdutoPage extends StatefulWidget {
   final int produtoId;
@@ -57,9 +58,7 @@ class _DetalhesPageStatus extends State<DetalhesProdutoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Detalhes do Produto'),
-      ),
+      appBar: const AppbarWidget(title: 'CRUD - Produto'),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : produto != null
@@ -91,7 +90,7 @@ class _DetalhesPageStatus extends State<DetalhesProdutoPage> {
                             const SizedBox(height: 10),
                             Text('Estoque: ${produto!.estoque}'),
                             const SizedBox(height: 10),
-                            Text('Data: ${produto!.data}'),
+                            Text('Data: ${produto!.data.substring(0, 10)}'),
                           ],
                         ),
                       ),
@@ -100,26 +99,43 @@ class _DetalhesPageStatus extends State<DetalhesProdutoPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           ElevatedButton(
-                            onPressed: () async {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => EditarProdutoPage(
-                                        produtoId: produto!.id)),
-                              );
-                              _fetchProduto();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue,
-                            ),
-                            child: const Text('Editar'),
-                          ),
+                              onPressed: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditarProdutoPage(
+                                          produtoId: produto!.id)),
+                                );
+                                _fetchProduto();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                              ),
+                              child: const Wrap(
+                                alignment: WrapAlignment.center,
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    'Edit',
+                                    softWrap: true,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              )),
                           ElevatedButton(
                             onPressed: () {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
+                                  
                                     title: const Text('Confirmação'),
                                     content: const Text(
                                         'Tem certeza de que deseja excluir este produto?'),
@@ -128,7 +144,26 @@ class _DetalhesPageStatus extends State<DetalhesProdutoPage> {
                                         onPressed: () {
                                           Navigator.of(context).pop();
                                         },
-                                        child: const Text('Cancelar'),
+                                        style: TextButton.styleFrom(
+                                            backgroundColor: Colors.blue),
+                                        child: const Wrap(
+                                          alignment: WrapAlignment.center,
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.cancel,
+                                              color: Colors.white,
+                                            ),
+                                            Text(
+                                              'Cancelar',
+                                              softWrap: true,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       ElevatedButton(
                                         onPressed: () async {
@@ -146,7 +181,25 @@ class _DetalhesPageStatus extends State<DetalhesProdutoPage> {
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.red,
                                         ),
-                                        child: const Text('Excluir'),
+                                        child: const Wrap(
+                                          alignment: WrapAlignment.center,
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.delete,
+                                              color: Colors.white,
+                                            ),
+                                            SizedBox(width: 8),
+                                            Text(
+                                              'Excluir',
+                                              softWrap: true,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   );
@@ -154,10 +207,26 @@ class _DetalhesPageStatus extends State<DetalhesProdutoPage> {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  Colors.red, // Cor do botão de excluir
+                              backgroundColor: Colors.red,
                             ),
-                            child: const Text('Excluir'),
+                            child: const Wrap(
+                              alignment: WrapAlignment.center,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Delete',
+                                  softWrap: true,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
