@@ -33,6 +33,7 @@ flutter doctor
    ```
 
 ## Executando a Aplicação
+Em seguida para rodar a aplicação, certifique-se de que o back-end esteja em execução. Mais detalhes podem ser encontados aqui: [Repositório produto-api](https://github.com/joaoPAndrade/produto-api)
 
 ### Para Web
 
