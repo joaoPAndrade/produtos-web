@@ -46,30 +46,40 @@ class _HomePageStatus extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const AppbarWidget(title: 'CRUD - Produto', showBackButton: false,),
+        appBar: const AppbarWidget(
+          title: 'CRUD - Produto',
+          showBackButton: false,
+        ),
         body: Stack(
           children: [
             const SizedBox(height: 200),
             _isLoading
                 ? const Center(child: CircularProgressIndicator())
-                : ListView.builder(
-                    itemCount: produtos.length,
-                    itemBuilder: (context, index) {
-                      return ProdutoWidget(
-                        produto: produtos[index],
-                        onTap: () async {
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetalhesProdutoPage(
-                                  produtoId: produtos[index].id),
-                            ),
+                : produtos.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: produtos.length,
+                        itemBuilder: (context, index) {
+                          return ProdutoWidget(
+                            produto: produtos[index],
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetalhesProdutoPage(
+                                      produtoId: produtos[index].id),
+                                ),
+                              );
+                              _fetchProdutos();
+                            },
                           );
-                          _fetchProdutos();
                         },
-                      );
-                    },
-                  ),
+                      )
+                    : const Center(
+                        child: Text(
+                          "Nenhum produto encontrado",
+                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                        ),
+                      ),
             Positioned(
               bottom: 16,
               right: 16,
@@ -83,7 +93,10 @@ class _HomePageStatus extends State<HomePage> {
                   _fetchProdutos();
                 },
                 backgroundColor: Colors.blue,
-                child: const Icon(Icons.add, color: Colors.white,),
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],
