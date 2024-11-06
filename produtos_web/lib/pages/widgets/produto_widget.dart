@@ -15,7 +15,7 @@ class ProdutoWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 144, 203, 252),
+        color: const Color.fromARGB(255, 236, 236, 236),
         borderRadius: BorderRadius.circular(8.0),
       ),
       constraints: const BoxConstraints(
@@ -26,7 +26,7 @@ class ProdutoWidget extends StatelessWidget {
         title: Text(
           produto.descricao,
           style: const TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
