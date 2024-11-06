@@ -104,6 +104,38 @@ class FormularioWidgetState extends State<FormularioWidget> {
             constraints: const BoxConstraints(maxWidth: 200),
             child: ElevatedButton(
               onPressed: () {
+                
+                if (descricaoController.text.length < 3) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text(
+                            "Descrição deve ter pelo menos 3 caracteres.")),
+                  );
+                  return;
+                }
+                if (double.tryParse(precoController.text) == null ||
+                    double.parse(precoController.text) <= 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text("Preço deve ser maior que zero.")),
+                  );
+                  return;
+                }
+                if (int.tryParse(estoqueController.text) == null ||
+                    int.parse(estoqueController.text) <= 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text("Estoque deve ser maior que zero.")),
+                  );
+                  return;
+                }
+                if (dataController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Data é obrigatória.")),
+                  );
+                  return;
+                }
+
                 final novoProduto = {
                   "descricao": descricaoController.text,
                   "preco": double.tryParse(precoController.text) ?? 0.0,
